@@ -1,4 +1,5 @@
 const { fork } = require("child_process");
+const Jimp = require("jimp");
 
 module.exports = {
   processLakeImages: async function (lakeImages) {
