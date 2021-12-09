@@ -25,8 +25,8 @@ module.exports = training = {
     let trainingTargets = await training.getTrainingTargets();
     let labelTensor = await tf.tensor1d(trainingTargets, "int32");
 
-    trainingInputs = tf.tensor2d(trainingInputs);
-    trainingTargets = tf.oneHot(labelTensor, 4);
+    trainingInputs = await tf.tensor2d(trainingInputs);
+    trainingTargets = await tf.oneHot(labelTensor, 4);
     await labelTensor.dispose();
 
     await console.log("made it here");
