@@ -3,7 +3,7 @@ const tf = require("@tensorflow/tfjs-node-gpu");
 const appRoot = require("app-root-path");
 
 process.on("message", async (msg) => {
-  let { x, y, nearbyImages } = msg;
+  let { x, y, nearbyImages, model } = msg;
 
   let m2m2Color,
     zm2Color,
@@ -170,8 +170,6 @@ process.on("message", async (msg) => {
   } else {
     p2p2Color = await Jimp.intToRGBA(nearbyImages[1][1].getPixelColor(p2p2[0], p2p2[1]));
   }
-
-  const model = await tf.loadLayersModel(`file://${appRoot}/NeuralNetwork/model/model.json`);
 
   await tf.tidy(() => {
     const labelList = ["land", "water", "depthLine", "depthNumber"];
