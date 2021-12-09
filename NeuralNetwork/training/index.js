@@ -21,7 +21,7 @@ module.exports = training = {
     const model = await training.createModel();
     await console.log("model created");
 
-    let trainingInputs = await training.getTrainingInputs();
+    let trainingInputs = await this.getTrainingInputs();
     let trainingTargets = await training.getTrainingTargets();
     let labelTensor = await tf.tensor1d(trainingTargets, "int32");
 
