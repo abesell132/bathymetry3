@@ -19,6 +19,7 @@ module.exports = training = {
 
   async trainModel() {
     const model = await training.createModel();
+    await console.log("model created");
 
     let trainingInputs = await training.getTrainingInputs();
     let trainingTargets = await training.getTrainingTargets();
