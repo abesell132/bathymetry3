@@ -142,13 +142,14 @@ function loadImage(path) {
   });
 }
 
-function serializeJimpFunctions(...nearbyImages) {
-  for (let a = 0; a < nearbyImages.length; a++) {
-    for (let b = 0; b < nearbyImages[a].length; b++) {
-      if (nearbyImages[a][b] !== null) {
-        nearbyImages[a][b].getPixelHex = nearbyImages[a][b].toString();
+function serializeJimpFunctions() {
+  let nearby = [...nearbyImages];
+  for (let a = 0; a < nearby.length; a++) {
+    for (let b = 0; b < nearby[a].length; b++) {
+      if (nearby[a][b] !== null) {
+        nearby[a][b].getPixelHex = nearby[a][b].toString();
       }
     }
   }
-  return nearbyImages;
+  return nearby;
 }
