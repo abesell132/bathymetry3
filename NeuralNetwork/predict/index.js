@@ -19,7 +19,7 @@ module.exports = {
     if (imgY == 1) startPixelY = 3;
     if (imgY == totalRow) endPixelY = 933;
 
-    let nearbyImages = this.gatherNearByImages(imgFilePath, imgDir);
+    let nearbyImages = this.gatherNearByImages(imgFilePath, imageDir);
 
     let queue = [];
     for (let y = startPixelY; y < endPixelY; y++) {
