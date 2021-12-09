@@ -237,5 +237,6 @@ process.on("message", async (msg) => {
     let label = labelList[index];
 
     console.log(label);
+    process.exit(0);
   });
 });
