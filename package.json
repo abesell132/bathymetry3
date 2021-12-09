@@ -1,0 +1,17 @@
+{
+  "scripts": {
+    "windows": "NODE_ENV=windows node index.js",
+    "linux": "NODE_ENV=linux node index.js"
+  },
+  "dependencies": {
+    "app-root-path": "^3.0.0",
+    "csv-reader": "^1.0.8",
+    "puppeteer": "^12.0.1"
+  },
+  "name": "lakedepth",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
