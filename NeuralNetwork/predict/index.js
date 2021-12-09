@@ -4,6 +4,7 @@ let tf;
 if (process.env.NODE_ENV == "linux") {
   tf = require("@tensorflow/tfjs-node-gpu");
 }
+const appRoot = require("app-root-path");
 
 module.exports = {
   processLakeImages: async function (lakeImages) {
