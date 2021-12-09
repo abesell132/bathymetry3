@@ -29,7 +29,7 @@ module.exports = training = {
     trainingTargets = await tf.oneHot(labelTensor, 4);
     await labelTensor.dispose();
 
-    await console.log(trainingInputs);
+    await console.log(trainingInputs[0]);
 
     return new Promise((resolve) => {
       model.fit(trainingInputs, trainingTargets, {
