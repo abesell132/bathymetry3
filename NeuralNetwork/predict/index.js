@@ -38,7 +38,7 @@ module.exports = {
 async function start_processing(queue, nearbyImages) {
   var hrstart = await process.hrtime();
   let { x, y } = await queue.shift();
-  const pixelChild = await fork("./predict.js");
+  const pixelChild = await fork("./NeuralNetwork/predict/predict.js");
   await pixelChild.send({ x, y, nearbyImages });
 
   await pixelChild.on("close", async () => {
