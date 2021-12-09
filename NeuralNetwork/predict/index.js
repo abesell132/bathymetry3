@@ -124,6 +124,7 @@ async function gatherNearByImages(imgFilePath, imageDir, imgX, imgY) {
         }
       }
     }
+    await console.log(nearbyImages);
     await resolve(nearbyImages);
   });
 }
