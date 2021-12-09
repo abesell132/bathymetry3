@@ -37,9 +37,9 @@ module.exports = {
     let modelPath = `file://${appRoot}/NeuralNetwork/model/model.json`;
     const model = await tf.loadLayersModel(modelPath);
 
-    for (let i = 0; i < 8; i++) {
-      await start_processing(queue, nearbyImages, model);
-    }
+    // for (let i = 0; i < 8; i++) {
+    await start_processing(queue, nearbyImages, model);
+    // }
   },
 };
 

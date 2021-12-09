@@ -5,6 +5,8 @@ const appRoot = require("app-root-path");
 process.on("message", async (msg) => {
   let { x, y, nearbyImages, model } = msg;
 
+  console.log(nearbyImages);
+
   let m2m2Color,
     zm2Color,
     p2m2Color,
