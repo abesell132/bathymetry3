@@ -18,11 +18,11 @@ module.exports = training = {
   },
 
   async trainModel() {
-    const model = await training.createModel();
+    const model = await createModel();
     await console.log("model created");
 
-    let trainingInputs = await this.getTrainingInputs();
-    let trainingTargets = await training.getTrainingTargets();
+    let trainingInputs = await getTrainingInputs();
+    let trainingTargets = await getTrainingTargets();
     let labelTensor = await tf.tensor1d(trainingTargets, "int32");
 
     trainingInputs = await tf.tensor2d(trainingInputs);
@@ -48,58 +48,57 @@ module.exports = training = {
       });
     });
   },
-
-  async createModel(LEARNING_RATE = 0.1) {
-    const optimizer = tf.train.sgd(LEARNING_RATE);
-
-    const model = tf.sequential();
-
-    let hiddenLayer = tf.layers.dense({ units: 40, inputShape: [51], activation: "sigmoid" });
-    let outputLayer = tf.layers.dense({ units: 4, activation: "softmax" });
-
-    model.add(hiddenLayer);
-    model.add(outputLayer);
-
-    model.compile({
-      optimizer: optimizer,
-      loss: "categoricalCrossentropy",
-      metrics: ["accuracy"],
-    });
-
-    return model;
-  },
-
-  async getTrainingInputs() {
-    return new Promise((resolve) => {
-      let trainingInputs = [];
-      let csvStream = fs.createReadStream(path.join(__dirname, "./training.csv"), "utf8");
-
-      csvStream
-        .pipe(new CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
-        .on("data", function (row) {
-          row.pop();
-          trainingInputs.push(row);
-        })
-        .on("end", function () {
-          resolve(trainingInputs);
-        });
-    });
-  },
-
-  async getTrainingTargets() {
-    return new Promise((resolve) => {
-      let trainingTargets = [];
-      let csvStream = fs.createReadStream(path.join(__dirname, "./training.csv"), "utf8");
-
-      csvStream
-        .pipe(new CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
-        .on("data", function (row) {
-          let label = row.pop();
-          trainingTargets.push(training.labelList.indexOf(label));
-        })
-        .on("end", function () {
-          resolve(trainingTargets);
-        });
-    });
-  },
 };
+
+async function createModel(LEARNING_RATE = 0.1) {
+  const optimizer = tf.train.sgd(LEARNING_RATE);
+
+  const model = tf.sequential();
+
+  let hiddenLayer = tf.layers.dense({ units: 40, inputShape: [51], activation: "sigmoid" });
+  let outputLayer = tf.layers.dense({ units: 4, activation: "softmax" });
+
+  model.add(hiddenLayer);
+  model.add(outputLayer);
+
+  model.compile({
+    optimizer: optimizer,
+    loss: "categoricalCrossentropy",
+    metrics: ["accuracy"],
+  });
+
+  return model;
+}
+
+async function getTrainingInputs() {
+  return new Promise((resolve) => {
+    let trainingInputs = [];
+    let csvStream = fs.createReadStream(path.join(__dirname, "./training.csv"), "utf8");
+
+    csvStream
+      .pipe(new CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
+      .on("data", function (row) {
+        row.pop();
+        trainingInputs.push(row);
+      })
+      .on("end", function () {
+        resolve(trainingInputs);
+      });
+  });
+}
+async function getTrainingTargets() {
+  return new Promise((resolve) => {
+    let trainingTargets = [];
+    let csvStream = fs.createReadStream(path.join(__dirname, "./training.csv"), "utf8");
+
+    csvStream
+      .pipe(new CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
+      .on("data", function (row) {
+        let label = row.pop();
+        trainingTargets.push(training.labelList.indexOf(label));
+      })
+      .on("end", function () {
+        resolve(trainingTargets);
+      });
+  });
+}
