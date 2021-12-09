@@ -19,12 +19,10 @@ module.exports = training = {
 
   async trainModel() {
     const model = await createModel();
-    await console.log("model created");
 
     let trainingInputs = await getTrainingInputs();
     let trainingTargets = await getTrainingTargets();
     let labelTensor = await tf.tensor1d(trainingTargets, "int32");
-    await console.log(trainingInputs);
 
     trainingInputs = await tf.tensor2d(trainingInputs);
     trainingTargets = await tf.oneHot(labelTensor, 4);
@@ -77,8 +75,10 @@ async function getTrainingInputs() {
     csvStream
       .pipe(new CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
       .on("data", function (row) {
-        row.pop();
-        trainingInputs.push(row);
+        if (typeof row[0] !== "string") {
+          row.pop();
+          trainingInputs.push(row);
+        }
       })
       .on("end", function () {
         resolve(trainingInputs);
