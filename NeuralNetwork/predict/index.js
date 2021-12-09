@@ -36,22 +36,22 @@ module.exports = {
       await start_processing(queue, nearbyImages);
     }
   },
-
-  start_processing: async function (queue, nearbyImages) {
-    var hrstart = await process.hrtime();
-    let { x, y } = await queue.shift();
-    const pixelChild = await fork("./predictPixel.js");
-    await pixelChild.send({ x, y, nearbyImages });
-
-    await pixelChild.on("close", async () => {
-      if (queue.length > 0) {
-        var hrend = await process.hrtime(hrstart);
-        await console.info("Execution time (hr): %ds %dms", hrend[0], hrend[1] / 1000000);
-        await start(queue, nearbyImages);
-      }
-    });
-  },
 };
+
+async function start_processing(queue, nearbyImages) {
+  var hrstart = await process.hrtime();
+  let { x, y } = await queue.shift();
+  const pixelChild = await fork("./predictPixel.js");
+  await pixelChild.send({ x, y, nearbyImages });
+
+  await pixelChild.on("close", async () => {
+    if (queue.length > 0) {
+      var hrend = await process.hrtime(hrstart);
+      await console.info("Execution time (hr): %ds %dms", hrend[0], hrend[1] / 1000000);
+      await start(queue, nearbyImages);
+    }
+  });
+}
 
 async function gatherNearByImages(imgFilePath, imageDir, imgX, imgY) {
   let nearbyImages = [
