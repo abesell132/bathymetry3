@@ -142,7 +142,7 @@ function loadImage(path) {
   });
 }
 
-function serializeJimpFunctions() {
+function serializeJimpFunctions(nearbyImages) {
   let nearby = [...nearbyImages];
   for (let a = 0; a < nearby.length; a++) {
     for (let b = 0; b < nearby[a].length; b++) {

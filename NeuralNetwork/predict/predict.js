@@ -3,7 +3,6 @@ const tf = require("@tensorflow/tfjs-node-gpu");
 const appRoot = require("app-root-path");
 
 process.on("message", async (msg) => {
-  await console.log(msg.nearby[1]);
   let { x, y, nearby, model } = await msg;
 
   await console.log(nearby[1][1]);
