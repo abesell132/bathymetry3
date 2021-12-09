@@ -19,12 +19,15 @@ module.exports = {
     if (imgY == 1) startPixelY = 3;
     if (imgY == totalRow) endPixelY = 933;
 
-    let nearbyImages = gatherNearByImages(imgFilePath, imageDir, imgX, imgY);
+    await console.log(imgX);
+    await console.log(imgY);
+
+    let nearbyImages = await gatherNearByImages(imgFilePath, imageDir, imgX, imgY);
 
     let queue = [];
     for (let y = startPixelY; y < endPixelY; y++) {
       for (let x = startPixelX; x < endPixelX; x++) {
-        queue.push({ x, y });
+        await queue.push({ x, y });
       }
     }
 
