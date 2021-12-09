@@ -20,6 +20,8 @@ async function start() {
 
   let lakeImages = await gatherLakeImages(lake, startPos, endPos);
 
+  await console.log("Made it here");
+
   await processLakeImages(lakeImages);
 }
 
