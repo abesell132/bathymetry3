@@ -28,6 +28,7 @@ module.exports = {
     let nearbyImages = await gatherNearByImages(imgFilePath, imageDir, imgX, imgY);
 
     let queue = [];
+
     for (let y = startPixelY; y < endPixelY; y++) {
       for (let x = startPixelX; x < endPixelX; x++) {
         await queue.push({ x, y });
@@ -36,6 +37,8 @@ module.exports = {
 
     let modelPath = `file://${appRoot}/NeuralNetwork/model/model.json`;
     const model = await tf.loadLayersModel(modelPath);
+
+    await console.log(nearbyImages);
 
     // for (let i = 0; i < 8; i++) {
     await start_processing(queue, nearbyImages, model);
@@ -124,7 +127,6 @@ async function gatherNearByImages(imgFilePath, imageDir, imgX, imgY) {
         }
       }
     }
-    await console.log(nearbyImages);
     await resolve(nearbyImages);
   });
 }
@@ -132,7 +134,6 @@ function loadImage(path) {
   return new Promise((resolve, reject) => {
     Jimp.read(path)
       .then((image) => {
-        console.log(image);
         resolve(image);
       })
       .catch((err) => {
