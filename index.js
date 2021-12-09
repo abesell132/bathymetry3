@@ -5,8 +5,8 @@ const { processLakeImages } = require("./NeuralNetwork/predict");
 const { gatherLakeImages } = require("./webScraper");
 
 const lake = "Lake Bancroft";
-const startPos = { lat: 46.496, lng: -87.6776 };
-const endPos = { lat: 46.4924, lng: -87.6717 };
+const startPos = { lat: 46.49379, lng: -87.67749 };
+const endPos = { lat: 46.49251, lng: -87.67301 };
 
 async function start() {
   if (!fs.existsSync(`./lakes`)) {
