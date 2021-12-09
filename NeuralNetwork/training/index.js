@@ -29,8 +29,6 @@ module.exports = training = {
     await labelTensor.dispose();
 
     return new Promise((resolve) => {
-      if (NeuralNetwork.isTraining) return;
-      NeuralNetwork.isTraining = true;
       model.fit(trainingInputs, trainingTargets, {
         shuffle: true,
         validationSplit: 0.1,
@@ -40,7 +38,6 @@ module.exports = training = {
             await tf.nextFrame();
           },
           onTrainEnd: async () => {
-            NeuralNetwork.isTraining = false;
             await model.save(`file://${appRoot}/NeuralNetwork/model/model.json`);
             await resolve();
           },
