@@ -6,6 +6,7 @@ process.on("message", async (msg) => {
   let { x, y, nearbyImages, model } = msg;
 
   console.log(nearbyImages[1][1]);
+  console.log(nearbyImages[1][1].getPixelColor(1, 1));
 
   let m2m2Color,
     zm2Color,
