@@ -19,7 +19,7 @@ module.exports = {
     if (imgY == 1) startPixelY = 3;
     if (imgY == totalRow) endPixelY = 933;
 
-    let nearbyImages = gatherNearByImages(imgFilePath, imageDir);
+    let nearbyImages = gatherNearByImages(imgFilePath, imageDir, imgX, imgY);
 
     let queue = [];
     for (let y = startPixelY; y < endPixelY; y++) {
@@ -49,7 +49,7 @@ module.exports = {
   },
 };
 
-async function gatherNearByImages(imgFilePath, imageDir) {
+async function gatherNearByImages(imgFilePath, imageDir, imgX, imgY) {
   let nearbyImages = [
     [null, null, null],
     [null, imgFilePath, null],
