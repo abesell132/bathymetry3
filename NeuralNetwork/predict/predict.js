@@ -7,7 +7,7 @@ process.on("message", async (msg) => {
 
   await console.log(nearby[1][1]);
 
-  nearby[1][1].getPixelColor = await new Function("return " + nearby[1][1])();
+  nearby[1][1].getPixelColor = await new Function("return " + nearby[1][1].getPixelHex)();
   await console.log(nearby[1][1].getPixelColor(1, 1));
 
   let m2m2Color,
