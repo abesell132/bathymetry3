@@ -236,6 +236,6 @@ process.on("message", async (msg) => {
     let index = argMax.dataSync()[0];
     let label = labelList[index];
 
-    console.log(index);
+    console.log(label);
   });
 });
