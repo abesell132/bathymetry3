@@ -38,8 +38,6 @@ module.exports = {
     let modelPath = `file://${appRoot}/NeuralNetwork/model/model.json`;
     const model = await tf.loadLayersModel(modelPath);
 
-    await console.log(nearbyImages);
-
     // for (let i = 0; i < 8; i++) {
     await start_processing(queue, nearbyImages, model);
     // }
@@ -47,6 +45,7 @@ module.exports = {
 };
 
 async function start_processing(queue, nearbyImages, model) {
+  await console.log(nearbyImages);
   var hrstart = await process.hrtime();
   let { x, y } = await queue.shift();
   const pixelChild = await fork("./NeuralNetwork/predict/predict.js");
