@@ -1,5 +1,9 @@
 const { fork } = require("child_process");
 const Jimp = require("jimp");
+let tf;
+if (process.env.NODE_ENV == "linux") {
+  tf = require("@tensorflow/tfjs-node-gpu");
+}
 
 module.exports = {
   processLakeImages: async function (lakeImages) {
