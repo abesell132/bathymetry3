@@ -48,7 +48,8 @@ async function start_processing(queue, nearbyImages, model) {
   var hrstart = await process.hrtime();
   let { x, y } = await queue.shift();
   const pixelChild = await fork("./NeuralNetwork/predict/predict.js");
-  let nearby = [...nearbyImages];
+  const nearby = serializeJimpFunctions(nearbyImages);
+
   await pixelChild.send({ x, y, nearby, model });
 
   await pixelChild.on("close", async () => {
@@ -139,4 +140,15 @@ function loadImage(path) {
         reject(err);
       });
   });
+}
+
+function serializeJimpFunctions(...nearbyImages) {
+  for (let a = 0; a < nearbyImages.length; a++) {
+    for (let b = 0; b < nearbyImages[a].length; b++) {
+      if (nearbyImages[a][b] !== null) {
+        nearbyImages[a][b].getPixelHex = nearbyImages[a][b].toString();
+      }
+    }
+  }
+  return nearbyImages;
 }
