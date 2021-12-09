@@ -24,12 +24,11 @@ module.exports = training = {
     let trainingInputs = await getTrainingInputs();
     let trainingTargets = await getTrainingTargets();
     let labelTensor = await tf.tensor1d(trainingTargets, "int32");
+    await console.log(trainingInputs);
 
     trainingInputs = await tf.tensor2d(trainingInputs);
     trainingTargets = await tf.oneHot(labelTensor, 4);
     await labelTensor.dispose();
-
-    await console.log(trainingInputs[0]);
 
     return new Promise((resolve) => {
       model.fit(trainingInputs, trainingTargets, {
