@@ -39,7 +39,7 @@ module.exports = {
     const pixelChild = await fork("./predictPixel.js");
     await pixelChild.send({ x, y, nearbyImages });
 
-    await pixelChild.on("close", () => {
+    await pixelChild.on("close", async () => {
       if (queue.length > 0) {
         await start(queue, nearbyImages);
       }
