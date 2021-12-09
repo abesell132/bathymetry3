@@ -45,7 +45,7 @@ async function start_processing(queue, nearbyImages) {
     if (queue.length > 0) {
       var hrend = await process.hrtime(hrstart);
       await console.info("Execution time (hr): %ds %dms", hrend[0], hrend[1] / 1000000);
-      await start(queue, nearbyImages);
+      await start_processing(queue, nearbyImages);
     }
   });
 }
