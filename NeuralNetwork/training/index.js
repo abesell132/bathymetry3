@@ -87,14 +87,19 @@ async function getTrainingInputs() {
 }
 async function getTrainingTargets() {
   return new Promise((resolve) => {
+    let isFirst = true;
     let trainingTargets = [];
     let csvStream = fs.createReadStream(path.join(__dirname, "./training.csv"), "utf8");
 
     csvStream
       .pipe(new CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
       .on("data", function (row) {
-        let label = row.pop();
-        trainingTargets.push(training.labelList.indexOf(label));
+        if (!isFirst) {
+          let label = row.pop();
+          trainingTargets.push(training.labelList.indexOf(label));
+        } else {
+          isFirst = false;
+        }
       })
       .on("end", function () {
         resolve(trainingTargets);
