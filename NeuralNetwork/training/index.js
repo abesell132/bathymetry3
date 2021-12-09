@@ -38,7 +38,7 @@ module.exports = training = {
             await tf.nextFrame();
           },
           onTrainEnd: async () => {
-            await model.save(`file://${appRoot}/NeuralNetwork/model/model.json`);
+            await model.save(`file://${appRoot}/NeuralNetwork/model`);
             await resolve();
           },
         },
