@@ -52,7 +52,7 @@ module.exports = {
 async function gatherNearByImages(imgFilePath, imageDir) {
   let nearbyImages = [
     [null, null, null],
-    [null, currentImgPath, null],
+    [null, imgFilePath, null],
     [null, null, null],
   ];
 
