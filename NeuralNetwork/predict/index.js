@@ -28,7 +28,9 @@ module.exports = {
       }
     }
 
-    await start_processing(queue, nearbyImages);
+    for (let i = 0; i < 8; i++) {
+      await start_processing(queue, nearbyImages);
+    }
   },
 
   start_processing: async function (queue, nearbyImages) {
