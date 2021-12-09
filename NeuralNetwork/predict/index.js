@@ -47,9 +47,9 @@ module.exports = {
 async function start_processing(queue, nearbyImages, model) {
   var hrstart = await process.hrtime();
   let { x, y } = await queue.shift();
-  const pixelChild = await fork("./NeuralNetwork/predict/predict.js");
-  const nearby = serializeJimpFunctions(nearbyImages);
+  const nearby = await serializeJimpFunctions(nearbyImages);
 
+  const pixelChild = await fork("./NeuralNetwork/predict/predict.js");
   await pixelChild.send({ x, y, nearby, model });
 
   await pixelChild.on("close", async () => {
