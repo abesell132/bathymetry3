@@ -3,9 +3,10 @@ const tf = require("@tensorflow/tfjs-node-gpu");
 const appRoot = require("app-root-path");
 
 process.on("message", async (msg) => {
-  let { x, y, nearbyImages, model } = await msg;
+  await console.log(msg);
+  let { x, y, nearby, model } = await msg;
 
-  await console.log(nearbyImages[1][1]);
+  await console.log(nearby[1][1]);
 
   let m2m2Color,
     zm2Color,
