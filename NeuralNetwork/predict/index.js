@@ -49,7 +49,8 @@ async function start_processing(queue, nearbyImages, model) {
   var hrstart = await process.hrtime();
   let { x, y } = await queue.shift();
   const pixelChild = await fork("./NeuralNetwork/predict/predict.js");
-  await pixelChild.send({ x, y, nearbyImages, model });
+  let nearby = [...nearbyImages];
+  await pixelChild.send({ x, y, nearby, model });
 
   await pixelChild.on("close", async () => {
     if (queue.length > 0) {
