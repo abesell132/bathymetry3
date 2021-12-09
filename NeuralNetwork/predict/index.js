@@ -34,16 +34,16 @@ module.exports = {
       }
     }
 
+    let modelPath = `file://${appRoot}/NeuralNetwork/model/model.json`;
+    const model = await tf.loadLayersModel(modelPath);
+
     for (let i = 0; i < 8; i++) {
-      await start_processing(queue, nearbyImages);
+      await start_processing(queue, nearbyImages, model);
     }
   },
 };
 
-async function start_processing(queue, nearbyImages) {
-  let modelPath = `file://${appRoot}/NeuralNetwork/model/model.json`;
-
-  const model = await tf.loadLayersModel(modelPath);
+async function start_processing(queue, nearbyImages, model) {
   var hrstart = await process.hrtime();
   let { x, y } = await queue.shift();
   const pixelChild = await fork("./NeuralNetwork/predict/predict.js");
@@ -53,7 +53,7 @@ async function start_processing(queue, nearbyImages) {
     if (queue.length > 0) {
       var hrend = await process.hrtime(hrstart);
       await console.info("Execution time (hr): %ds %dms", hrend[0], hrend[1] / 1000000);
-      await start_processing(queue, nearbyImages);
+      await start_processing(queue, nearbyImages, model);
     }
   });
 }
